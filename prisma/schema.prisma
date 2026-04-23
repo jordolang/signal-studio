@@ -1,0 +1,204 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+// ─── Auth & Users ────────────────────────────────────────
+
+model User {
+  id             String   @id @default(cuid())
+  clerkId        String   @unique
+  email          String   @unique
+  name           String?
+  imageUrl       String?
+  role           UserRole @default(CREATOR)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  creatorProfile CreatorProfile?
+  contentItems   ContentItem[]
+  subredditConfigs SubredditConfig[]
+  subscribers    Subscriber[]
+
+  @@index([clerkId])
+  @@index([email])
+}
+
+enum UserRole {
+  CREATOR
+  ADMIN
+}
+
+// ─── Creator ─────────────────────────────────────────────
+
+model CreatorProfile {
+  id               String            @id @default(cuid())
+  userId           String            @unique
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  displayName      String
+  bio              String?           @db.Text
+  voiceBaselineUrl String?
+  voiceBaseline    Json?
+  categories       ContentCategory[]
+  isNsfw           Boolean           @default(false)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+enum ContentCategory {
+  AUDIO
+  VIDEO
+  TEXT
+  IMAGE
+  MIXED
+  EDUCATIONAL
+  ENTERTAINMENT
+  LIFESTYLE
+}
+
+// ─── Content ─────────────────────────────────────────────
+
+model ContentItem {
+  id          String        @id @default(cuid())
+  userId      String
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?       @db.Text
+  type        ContentType
+  status      ContentStatus @default(DRAFT)
+  isNsfw      Boolean       @default(false)
+  nsfwRating  NsfwRating?
+  mediaUrl    String?
+  metadata    Json?
+  tags        String[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([type])
+  @@index([isNsfw])
+}
+
+enum ContentType {
+  VOICE
+  VIDEO
+  TEXT
+  IMAGE
+}
+
+enum ContentStatus {
+  DRAFT
+  IN_PROGRESS
+  REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum NsfwRating {
+  SFW
+  SUGGESTIVE
+  NSFW
+  EXPLICIT
+}
+
+// ─── Reddit Research ─────────────────────────────────────
+
+model SubredditConfig {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  subreddit   String
+  isActive    Boolean  @default(true)
+  lastScraped DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  posts  RedditPost[]
+  trends RedditTrend[]
+
+  @@unique([userId, subreddit])
+  @@index([subreddit])
+}
+
+model RedditPost {
+  id              String   @id @default(cuid())
+  subredditConfig SubredditConfig @relation(fields: [subredditConfigId], references: [id], onDelete: Cascade)
+  subredditConfigId String
+  redditId        String   @unique
+  subreddit       String
+  title           String
+  body            String?  @db.Text
+  authorHandle    String?
+  score           Int      @default(0)
+  numComments     Int      @default(0)
+  permalink       String?
+  sentiment       Float?
+  themes          String[]
+  demandSignals   String[]
+  contentRequests String[]
+  postedAt        DateTime
+  scrapedAt       DateTime @default(now())
+
+  @@index([subreddit])
+  @@index([postedAt])
+  @@index([sentiment])
+  @@index([score])
+}
+
+model RedditTrend {
+  id              String   @id @default(cuid())
+  subredditConfig SubredditConfig @relation(fields: [subredditConfigId], references: [id], onDelete: Cascade)
+  subredditConfigId String
+  subreddit       String
+  keyword         String
+  frequency       Int      @default(0)
+  sentimentAvg    Float?
+  sentimentMin    Float?
+  sentimentMax    Float?
+  timePeriod      TrendPeriod @default(WEEKLY)
+  periodStart     DateTime
+  periodEnd       DateTime
+  relatedKeywords String[]
+  createdAt       DateTime @default(now())
+
+  @@index([subreddit, keyword])
+  @@index([timePeriod, periodStart])
+  @@index([frequency])
+}
+
+enum TrendPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+// ─── Subscribers ─────────────────────────────────────────
+
+model Subscriber {
+  id          String           @id @default(cuid())
+  userId      String
+  user        User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  email       String
+  name        String?
+  status      SubscriberStatus @default(ACTIVE)
+  source      String?
+  metadata    Json?
+  subscribedAt DateTime       @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@unique([userId, email])
+  @@index([userId])
+  @@index([status])
+}
+
+enum SubscriberStatus {
+  ACTIVE
+  PAUSED
+  UNSUBSCRIBED
+}
