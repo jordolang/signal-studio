@@ -11,7 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Plus, Grid3X3, List, Filter, MoreVertical, Library } from 'lucide-react';
+import { Plus, Grid3X3, List, MoreVertical, Library } from 'lucide-react';
 import Link from 'next/link';
 import { useContentStore } from '@/stores/content-store';
 import { CONTENT_TYPE_LABELS, CONTENT_STATUS_LABELS } from '@/lib/constants';

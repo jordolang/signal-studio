@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Settings, User, Bell, Shield, Database } from 'lucide-react';
+import { User, Bell, Shield, Database } from 'lucide-react';
 
 const settingsSections = [
   { icon: User, title: 'Profile', description: 'Manage your creator profile and display name.' },

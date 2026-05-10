@@ -12,13 +12,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <ClerkProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.variable} font-sans antialiased`}>
-          <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+  const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+  const html = (
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans antialiased`}>
+        <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
+      </body>
+    </html>
   );
+  if (!publishableKey) {
+    return html;
+  }
+  return <ClerkProvider publishableKey={publishableKey}>{html}</ClerkProvider>;
 }

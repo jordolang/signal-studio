@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Users, UserPlus, Download } from 'lucide-react';
+import { UserPlus, Download } from 'lucide-react';
 
 const mockSubscribers = [
   { id: '1', email: 'fan1@example.com', name: 'Alex M.', status: 'ACTIVE', source: 'Reddit', subscribedAt: '2024-01-15' },
