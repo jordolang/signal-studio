@@ -14,15 +14,16 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const html = (
+  const app = <TooltipProvider delayDuration={0}>{children}</TooltipProvider>;
+  return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <TooltipProvider delayDuration={0}>{children}</TooltipProvider>
+        {publishableKey ? (
+          <ClerkProvider publishableKey={publishableKey}>{app}</ClerkProvider>
+        ) : (
+          app
+        )}
       </body>
     </html>
   );
-  if (!publishableKey) {
-    return html;
-  }
-  return <ClerkProvider publishableKey={publishableKey}>{html}</ClerkProvider>;
 }
