@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Mic, Upload, Play, Settings } from 'lucide-react';
+import { Mic, Upload, Settings } from 'lucide-react';
 
 export default function VoiceBaselinePage() {
   return (
@@ -16,12 +16,14 @@ export default function VoiceBaselinePage() {
       <Card>
         <CardHeader>
           <CardTitle>Current Voice Profile</CardTitle>
-          <CardDescription>Your voice baseline is used as a reference for AI-assisted content.</CardDescription>
+          <CardDescription>
+            Your voice baseline is used as a reference for AI-assisted content.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center justify-center rounded-lg border border-dashed py-12">
-            <Mic className="mb-4 h-12 w-12 text-muted-foreground/50" />
-            <p className="mb-4 text-sm text-muted-foreground">No voice baseline configured yet.</p>
+            <Mic className="text-muted-foreground/50 mb-4 h-12 w-12" />
+            <p className="text-muted-foreground mb-4 text-sm">No voice baseline configured yet.</p>
             <div className="flex gap-3">
               <Button>
                 <Upload className="mr-2 h-4 w-4" /> Upload Sample
@@ -43,14 +45,18 @@ export default function VoiceBaselinePage() {
           <div className="flex items-center justify-between rounded-md border p-3">
             <div>
               <p className="text-sm font-medium">Voice Cloning Consent</p>
-              <p className="text-xs text-muted-foreground">Allow AI to use your voice for content generation.</p>
+              <p className="text-muted-foreground text-xs">
+                Allow AI to use your voice for content generation.
+              </p>
             </div>
             <Badge variant="outline">Not configured</Badge>
           </div>
           <div className="flex items-center justify-between rounded-md border p-3">
             <div>
               <p className="text-sm font-medium">Sample Quality</p>
-              <p className="text-xs text-muted-foreground">Minimum 30 seconds, WAV or MP3 format.</p>
+              <p className="text-muted-foreground text-xs">
+                Minimum 30 seconds, WAV or MP3 format.
+              </p>
             </div>
             <Badge variant="outline">No sample</Badge>
           </div>

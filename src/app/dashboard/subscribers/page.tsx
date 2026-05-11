@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -10,14 +10,49 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Users, UserPlus, Download } from 'lucide-react';
+import { UserPlus, Download } from 'lucide-react';
 
 const mockSubscribers = [
-  { id: '1', email: 'fan1@example.com', name: 'Alex M.', status: 'ACTIVE', source: 'Reddit', subscribedAt: '2024-01-15' },
-  { id: '2', email: 'fan2@example.com', name: 'Jamie L.', status: 'ACTIVE', source: 'Direct', subscribedAt: '2024-02-03' },
-  { id: '3', email: 'fan3@example.com', name: null, status: 'PAUSED', source: 'Reddit', subscribedAt: '2024-02-20' },
-  { id: '4', email: 'fan4@example.com', name: 'Sam K.', status: 'ACTIVE', source: 'Referral', subscribedAt: '2024-03-01' },
-  { id: '5', email: 'fan5@example.com', name: 'Chris D.', status: 'UNSUBSCRIBED', source: 'Direct', subscribedAt: '2024-01-10' },
+  {
+    id: '1',
+    email: 'fan1@example.com',
+    name: 'Alex M.',
+    status: 'ACTIVE',
+    source: 'Reddit',
+    subscribedAt: '2024-01-15',
+  },
+  {
+    id: '2',
+    email: 'fan2@example.com',
+    name: 'Jamie L.',
+    status: 'ACTIVE',
+    source: 'Direct',
+    subscribedAt: '2024-02-03',
+  },
+  {
+    id: '3',
+    email: 'fan3@example.com',
+    name: null,
+    status: 'PAUSED',
+    source: 'Reddit',
+    subscribedAt: '2024-02-20',
+  },
+  {
+    id: '4',
+    email: 'fan4@example.com',
+    name: 'Sam K.',
+    status: 'ACTIVE',
+    source: 'Referral',
+    subscribedAt: '2024-03-01',
+  },
+  {
+    id: '5',
+    email: 'fan5@example.com',
+    name: 'Chris D.',
+    status: 'UNSUBSCRIBED',
+    source: 'Direct',
+    subscribedAt: '2024-01-10',
+  },
 ];
 
 const statusColors: Record<string, 'default' | 'secondary' | 'destructive'> = {
@@ -47,7 +82,7 @@ export default function SubscribersPage() {
       <div className="grid gap-4 md:grid-cols-3">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Total</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">Total</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{mockSubscribers.length}</div>
@@ -55,7 +90,7 @@ export default function SubscribersPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Active</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">Active</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
@@ -65,7 +100,7 @@ export default function SubscribersPage() {
         </Card>
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">This Month</CardTitle>
+            <CardTitle className="text-muted-foreground text-sm font-medium">This Month</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">0</div>

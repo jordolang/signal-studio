@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { MessageSquare, ArrowUpDown, ThumbsUp, ThumbsDown, Minus } from 'lucide-react';
@@ -70,9 +70,10 @@ export default function FeedPage() {
               <div className="flex-1 space-y-2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-medium leading-tight">{post.title}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      r/{post.subreddit} &middot; {post.postedAt} &middot; {post.numComments} comments
+                    <p className="leading-tight font-medium">{post.title}</p>
+                    <p className="text-muted-foreground mt-1 text-xs">
+                      r/{post.subreddit} &middot; {post.postedAt} &middot; {post.numComments}{' '}
+                      comments
                     </p>
                   </div>
                 </div>
@@ -91,9 +92,10 @@ export default function FeedPage() {
 
       <Card>
         <CardContent className="py-8 text-center">
-          <MessageSquare className="mx-auto mb-2 h-8 w-8 text-muted-foreground/50" />
-          <p className="text-sm text-muted-foreground">
-            Showing mock data. Live post feed will populate once the background scraper is configured.
+          <MessageSquare className="text-muted-foreground/50 mx-auto mb-2 h-8 w-8" />
+          <p className="text-muted-foreground text-sm">
+            Showing mock data. Live post feed will populate once the background scraper is
+            configured.
           </p>
         </CardContent>
       </Card>

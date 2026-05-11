@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Radio, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -50,7 +50,7 @@ export default function DemandPage() {
               </div>
             </CardHeader>
             <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground">{signal.description}</p>
+              <p className="text-muted-foreground text-sm">{signal.description}</p>
               <div className="flex flex-wrap gap-1">
                 {signal.subreddits.map((sub) => (
                   <Badge key={sub} variant="outline" className="text-xs">
@@ -69,8 +69,8 @@ export default function DemandPage() {
 
       <Card>
         <CardContent className="py-8 text-center">
-          <Radio className="mx-auto mb-2 h-8 w-8 text-muted-foreground/50" />
-          <p className="text-sm text-muted-foreground">
+          <Radio className="text-muted-foreground/50 mx-auto mb-2 h-8 w-8" />
+          <p className="text-muted-foreground text-sm">
             Showing mock demand signals. Real analysis will populate from scraped post data.
           </p>
         </CardContent>
